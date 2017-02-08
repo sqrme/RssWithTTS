@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">念</string>
+    <string name="subscribe">订阅</string>
+    <string name="settings">设置</string>
+    <string name="help">帮助</string>
+    <string name="ref">反馈</string>
+    <string name="menu">菜单</string>
+    <string name="back">返回</string>
+</resources>
