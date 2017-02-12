@@ -111,7 +111,7 @@ public class RssItem implements Comparable<RssItem>, Parcelable {
 
 	public void setPubDate(String pubDate) {
 		try {
-			SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
+			SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.CHINESE);
 			this.pubDate = dateFormat.parse(pubDate);
 		} catch (ParseException e) {
 			e.printStackTrace();

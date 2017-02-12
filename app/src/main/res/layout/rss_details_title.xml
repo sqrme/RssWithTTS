@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/colorPrimary"
-    >
+    android:layout_height="wrap_content" android:background="@color/colorPrimary">
 
     <Button
-        android:id="@+id/refreshButton"
+        android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/MenuText"
-        android:text="@string/refresh"
+        android:text="@string/back"
         android:layout_gravity="center"
         />
 
@@ -26,11 +24,11 @@
         android:textSize="32dp"/>
 
     <Button
-        android:id="@+id/menuButton"
+        android:visibility="invisible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/MenuText"
-        android:text="@string/menu"
+        android:text="   "
         android:layout_gravity="center"
         />
 

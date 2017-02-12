@@ -9,7 +9,7 @@
         android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        style="@style/MenuText"
         android:text="@string/back"
         android:layout_gravity="center"
         />
@@ -24,6 +24,14 @@
         android:id="@+id/textView"
         android:textColor="@color/colorTitle"
         android:textSize="32dp"/>
+
+    <Button
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/MenuText"
+        android:layout_gravity="center"
+        />
 
 
 

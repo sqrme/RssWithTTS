@@ -15,6 +15,14 @@ public class RssSource {
         this.isChosen=isChosen;
     }
 
+    public void setChosen(){
+        this.isChosen=true;
+    }
+    public void setUnChosen()
+    {
+        this.isChosen=false;
+    }
+
     public String getName(){
         return this.name;
     }

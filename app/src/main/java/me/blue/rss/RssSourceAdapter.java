@@ -38,9 +38,9 @@ public class RssSourceAdapter extends ArrayAdapter<RssSource> {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
                 if(checked)
-                    Log.d("RSS",source.getName()+"is check !");
+                    source.setChosen();
                 else
-                    Log.d("RSS",source.getName()+"is not check !");
+                    source.setUnChosen();
             }
         });
         return view;

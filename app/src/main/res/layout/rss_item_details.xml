@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/colorMainBack"
+    android:fadingEdge="vertical">
+
+<LinearLayout
+    android:id="@+id/rss_item_details"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/rss_details_title"/>
+
+    <TextView
+        android:id="@+id/rss_item_title"
+        android:layout_width="match_parent"
+        style="@style/ItemText"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+        android:id="@+id/rss_source"
+            style="@style/LittleText"
+        android:text="information source"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="   "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/data_time"
+            android:text="date_time"
+            style="@style/LittleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <WebView
+        android:id="@+id/rss_item_content"
+        android:layout_width="match_parent"
+        style="@style/ContentText"
+        android:layout_height="wrap_content"></WebView>
+
+</LinearLayout>
+
+</ScrollView>

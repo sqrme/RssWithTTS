@@ -5,12 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="@color/colorMainBack"
     tools:context="me.blue.rss.MainActivity">
 
-    <include layout="@layout/layout_title_bar" />
-    <TextView
-        android:id="@+id/newsText"
-        android:layout_width="wrap_content"
+    <include layout="@layout/layout_title_bar"/>
+
+    <ProgressBar
+        android:id="@+id/progresBar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:max="100" />
+
+
+    <ListView
+        android:id="@+id/rss_item_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/Widget.AppCompat.Light.ListView.DropDown">
+    </ListView>
+
+
 </LinearLayout>

@@ -2,6 +2,8 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+
+
     <item android:title="@string/subscribe"
         android:id="@+id/subscribe"/>
     <item android:title="@string/settings"
