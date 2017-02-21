@@ -6,4 +6,6 @@
     <color name="colorTitle">#FFFFFF</color>
     <color name="colorMainBack">#ffffff</color>
     <color name="colorWhite">#ffffff</color>
+    <color name="colorUnMarked">#c920222b</color>
+    <color name="colorMarked">#3c55e6</color>
 </resources>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/colorMainBack"
@@ -48,6 +49,15 @@
         android:layout_width="match_parent"
         style="@style/ContentText"
         android:layout_height="wrap_content"></WebView>
+
+    <TextView
+        android:id="@+id/rss_link"
+        android:text="@string/link"
+        style="@style/LinkText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:clickable="true"
+        android:layout_gravity="right" />
 
 </LinearLayout>
 

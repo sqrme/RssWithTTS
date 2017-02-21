@@ -1,6 +1,7 @@
 package me.blue.rss;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,17 +31,24 @@ public class RssSourceAdapter extends ArrayAdapter<RssSource> {
     public View getView(int position, View convertView, ViewGroup parent) {
         final RssSource source=getItem(position);
         View view= LayoutInflater.from(getContext()).inflate(resourceId,null);
-        TextView sou_text=(TextView) view.findViewById(R.id.rss_name);
-        CheckBox sou_check=(CheckBox) view.findViewById(R.id.rss_check);
+        final TextView sou_text=(TextView) view.findViewById(R.id.rss_name);
+        final CheckBox sou_check=(CheckBox) view.findViewById(R.id.rss_check);
         sou_text.setText(source.getName());
         sou_check.setChecked(source.IsChosen());
+        sou_text.setTextColor(source.IsChosen()? getContext().getResources().getColor(R.color.colorMarked):getContext().getResources().getColor(R.color.colorUnMarked));
         sou_check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
-                if(checked)
+                if(checked) {
                     source.setChosen();
-                else
+                    //sou_text.setTextColor(Color.BLUE);
+                    sou_text.setTextColor(getContext().getResources().getColor(R.color.colorMarked));
+                }
+                else {
                     source.setUnChosen();
+                    //sou_text.setTextColor(Color.BLACK);
+                    sou_text.setTextColor(getContext().getResources().getColor(R.color.colorUnMarked));
+                }
             }
         });
         return view;

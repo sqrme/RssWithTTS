@@ -28,12 +28,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private List<RssSource> validSourceList=new ArrayList<RssSource>();
     private RssDatabaseHelper dbHelper;
     private int MaxCount=20;
-
+    private TTSProcesser ttsProcesser;
+    private ListView listView;
 
     private List<RssFeed> FeedList=new ArrayList<RssFeed>();
 
-    private  String title;
-    URL url = null;// new URL("http://feeds.bbci.co.uk/news/world/rss.xml");;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,20 +41,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button menuButton =(Button) findViewById(R.id.refreshButton);
         menuButton.setOnClickListener(this);
 
+        //listView=(ListView) findViewById(R.id.rss_item_list_view);
+
         dbHelper = new RssDatabaseHelper(this, "myrss.db", null, 1);
 
         Button refreshButton =(Button) findViewById(R.id.menuButton);
+        ttsProcesser = new TTSProcesser(this);
         refreshButton.setOnClickListener(this);
-
-        /*
-        new Thread(networkTask).start();
-        try {
-            Thread.sleep(15000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        TextView txt=(TextView)findViewById(R.id.newsText);
-        txt.setText(title);*/
     }
 
     private class NetworkDataLoader extends AsyncTask<List<RssSource>,Integer,List<RssItem>>{
@@ -63,7 +55,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         private String [] sou_string;
 
         @Override
-        protected void onPreExecute() {
+        protected void onPreExecute()
+        {
             Log.d("main","start.......");
         }
 
@@ -119,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         protected void onPostExecute(List<RssItem> rssItemList){
-            RssItemAdapter rssItemAdapter=new RssItemAdapter(MainActivity.this,R.layout.rss_item,rssItemList);
+            RssItemAdapter rssItemAdapter=new RssItemAdapter(MainActivity.this,R.layout.rss_item,rssItemList,ttsProcesser);
             ListView listView=(ListView) findViewById(R.id.rss_item_list_view);
             listView.setAdapter(rssItemAdapter);
         }
@@ -167,11 +160,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.refreshButton:
                 //Toast toast=Toast.makeText(this.getApplicationContext(),"refreshing",Toast.LENGTH_SHORT).show();;
                 validSourceList=dbHelper.getValidSourceList();
-                NetworkDataLoader loader=new NetworkDataLoader();
-                loader.execute(validSourceList);
                 ProgressBar progressBar=(ProgressBar) findViewById(R.id.progresBar);
                 progressBar.setMax(validSourceList.size());
-
+                progressBar.setProgress(0);
+                NetworkDataLoader loader=new NetworkDataLoader();
+                loader.execute(validSourceList);
+                progressBar.setProgress(0);
                 break;
             case R.id.menuButton:
                 PopupMenu popupMenu=new PopupMenu(this,view);

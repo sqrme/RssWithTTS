@@ -25,6 +25,7 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+
 public class RssItem implements Comparable<RssItem>, Parcelable {
 
 	private RssFeed feed;
@@ -33,7 +34,6 @@ public class RssItem implements Comparable<RssItem>, Parcelable {
 	private Date pubDate;
 	private String description;
 	private String content;
-
 	public RssItem() {
 		
 	}
@@ -47,7 +47,6 @@ public class RssItem implements Comparable<RssItem>, Parcelable {
 		description = data.getString("description");
 		content = data.getString("content");
 		feed = data.getParcelable("feed");
-		
 	}
 
 	@Override
