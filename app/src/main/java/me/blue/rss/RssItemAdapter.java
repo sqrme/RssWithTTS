@@ -50,11 +50,11 @@ public class RssItemAdapter extends ArrayAdapter<RssItem> {
             @Override
             public void onClick(View view) {
                 //String rawText=TextTransformer.getTextFromHtml(item.getDescription());
-                /*
+
                 if(!ttsProcesser.getFinishState()){
                     ttsProcesser.StopCurrentSpeech();
                 }
-                ttsProcesser.Speek(_adapter,position);*/
+                /*ttsProcesser.Speek(_adapter,position);*/
                 for(int i=position;i<_adapter.getCount();i++){
                     ListView listView=(ListView)(parent);
                     //View currentView=listView.getChildAt(i);

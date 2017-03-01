@@ -30,10 +30,12 @@ public class RssItem implements Comparable<RssItem>, Parcelable {
 
 	private RssFeed feed;
 	private String title;
-	private String link;
-	private Date pubDate;
-	private String description;
-	private String content;
+    private String link;
+    private Date pubDate;
+    private String description;
+    private String content;
+    private boolean marked;
+
 	public RssItem() {
 		
 	}
@@ -47,7 +49,16 @@ public class RssItem implements Comparable<RssItem>, Parcelable {
 		description = data.getString("description");
 		content = data.getString("content");
 		feed = data.getParcelable("feed");
+        marked = false;
 	}
+
+    public boolean isMarked(){
+        return marked;
+    }
+
+    public void setMarked(boolean marked){
+        this.marked=marked;
+    }
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {

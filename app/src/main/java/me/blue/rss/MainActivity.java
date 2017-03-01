@@ -20,6 +20,7 @@ import org.xml.sax.SAXException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TTSProcesser ttsProcesser;
     private ListView listView;
 
-    private List<RssFeed> FeedList=new ArrayList<RssFeed>();
+    private List<RssItem> rssItemsList=new ArrayList<RssItem>();
 
 
     @Override
@@ -71,7 +72,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         protected List<RssItem> doInBackground(List<RssSource>... lists) {
-            List<RssItem> rssItemsList=new ArrayList<RssItem>();
+            List<RssItem> rssItemList=new ArrayList<RssItem>();
+            //rssItemsList;
             int proress=0;
             sou_string=new String[lists[0].size()];
             int i=0;
@@ -90,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     //loadCount[]
                     if(i==MaxCount)
                         break;
-                    rssItemsList.add(rssItem);
+                    rssItemList.add(rssItem);
                 }
                 } catch (MalformedURLException e) {
                     Log.d("RSS Reader", e.toString());
@@ -107,17 +109,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     publishProgress(proress,i);
                 }
         }
-            return rssItemsList;
+            return rssItemList;
         }
 
         @Override
-        protected void onPostExecute(List<RssItem> rssItemList){
-            RssItemAdapter rssItemAdapter=new RssItemAdapter(MainActivity.this,R.layout.rss_item,rssItemList,ttsProcesser);
+        protected void onPostExecute(List<RssItem> rss_item_list){
+            if(rss_item_list.size()>0){
+                rssItemsList=rss_item_list;
+                saveRssItems();
+            }else
+            {
+                loadNewsFromDatabse();
+            }
+            RssItemAdapter rssItemAdapter=new RssItemAdapter(MainActivity.this,R.layout.rss_item,rssItemsList,ttsProcesser);
             ListView listView=(ListView) findViewById(R.id.rss_item_list_view);
             listView.setAdapter(rssItemAdapter);
         }
-
-
     }
 
 
@@ -145,12 +152,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void loadNewsFromDatabse(){
-        //
+        try {
+            rssItemsList=dbHelper.LoadRssItems();
+            Log.d("Rss",String.valueOf(rssItemsList.size()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void loadNewsFromWeb(){
-        for (RssSource source: validSourceList) {
 
+    private void saveRssItems(){
+        dbHelper.ClearRssItems();
+        int saveCount=dbHelper.SaveRssItems(rssItemsList);
+        if(saveCount==rssItemsList.size()){
+            Log.d("RSS Reader","Clear Rss Items sucess!");
         }
     }
 
