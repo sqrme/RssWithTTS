@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         protected void onPreExecute()
         {
-            Log.d("main","start.......");
+            AppLog.d("main","start.......");
         }
 
         @Override
@@ -66,7 +66,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             ProgressBar progressBar=(ProgressBar) findViewById(R.id.progresBar);
             progressBar.setProgress(values[0]);
             if(values[1]==0)
-                Toast.makeText(MainActivity.this,sou_string[values[0]-1] +"载入失败！", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyApplication.getContext(),sou_string[values[0]-1] +"载入失败！", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(MainActivity.this,sou_string[values[0]-1] +"载入失败！", Toast.LENGTH_SHORT).show();
         }
 
 
@@ -80,14 +81,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             for (RssSource source:lists[0]) {
                 sou_string[proress]=source.getName();
                 proress++;
-                Log.d("main",String.valueOf(lists[0].size()));
+                AppLog.d("main",String.valueOf(lists[0].size()));
                 try {
                     URL url = new URL(source.getAddress());
                     RssFeed feed = RssReader.read(url);
 
                 ArrayList<RssItem> rssItems = feed.getRssItems();
                 for (RssItem rssItem : rssItems) {
-                    Log.d("main", rssItem.getTitle());
+                    AppLog.d("main", rssItem.getTitle());
                     i++;
                     //loadCount[]
                     if(i==MaxCount)
@@ -95,14 +96,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     rssItemList.add(rssItem);
                 }
                 } catch (MalformedURLException e) {
-                    Log.d("RSS Reader", e.toString());
+                    AppLog.d("RSS Reader", e.toString());
                     e.printStackTrace();
 
                 } catch (SAXException e) {
-                    Log.d("RSS Reader", e.toString());
+                    AppLog.d("RSS Reader", e.toString());
                     e.printStackTrace();
                 } catch (IOException e) {
-                    Log.d("RSS Reader", e.toString());
+                    AppLog.d("RSS Reader", e.toString());
                     e.printStackTrace();
                 }
                 finally {
@@ -116,10 +117,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         protected void onPostExecute(List<RssItem> rss_item_list){
             if(rss_item_list.size()>0){
                 rssItemsList=rss_item_list;
-                saveRssItems();
+                //saveRssItems();
             }else
             {
-                loadNewsFromDatabse();
+                //loadNewsFromDatabse();
             }
             RssItemAdapter rssItemAdapter=new RssItemAdapter(MainActivity.this,R.layout.rss_item,rssItemsList,ttsProcesser);
             ListView listView=(ListView) findViewById(R.id.rss_item_list_view);
@@ -154,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void loadNewsFromDatabse(){
         try {
             rssItemsList=dbHelper.LoadRssItems();
-            Log.d("Rss",String.valueOf(rssItemsList.size()));
+            AppLog.d("Rss",String.valueOf(rssItemsList.size()));
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -165,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dbHelper.ClearRssItems();
         int saveCount=dbHelper.SaveRssItems(rssItemsList);
         if(saveCount==rssItemsList.size()){
-            Log.d("RSS Reader","Clear Rss Items sucess!");
+            AppLog.d("RSS Reader","Clear Rss Items sucess!");
         }
     }
 

@@ -84,18 +84,20 @@ public class RssItemAdapter extends ArrayAdapter<RssItem> {
             public void onClick(View view) {
                 //Toast.makeText(getContext(),item.getTitle(),Toast.LENGTH_LONG).show();
                 Intent intent=new Intent(getContext(),RssItemDetailsActivity.class);
+
                 try {
                     intent.putExtra("title", item.getTitle());
                     intent.putExtra("source", item.getFeed().getTitle());
                     intent.putExtra("details", item.getDescription());
                     intent.putExtra("link",item.getLink());
                     intent.putExtra("date_time", item.getPubDate().toString());
-                    Log.d("content",item.getContent());
+                    AppLog.d("content",item.getContent());
+                    intent.putExtra("rss_item",item);
                 }catch (Exception e)
                 {
-                    //
+                    e.printStackTrace();
                 }
-                Log.d("details",item.getLink());
+                AppLog.d("details",item.getLink());
                 getContext().startActivity(intent);
             }
         });

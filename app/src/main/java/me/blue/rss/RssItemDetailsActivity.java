@@ -22,7 +22,16 @@ public class RssItemDetailsActivity extends AppCompatActivity implements View.On
         setContentView(R.layout.rss_item_details);
         Button back_button=(Button) findViewById(R.id.backButton);
         back_button.setOnClickListener(this);
+
         Intent intent=getIntent();
+        RssItem item=(RssItem)intent.getParcelableExtra("rss_item");
+        /*
+        String title=item.getTitle();//intent.getStringExtra("title");
+        String source=item.getFeed().getTitle();//intent.getStringExtra("source");
+        String datetime=item.getPubDate().toString();//intent.getStringExtra("date_time");
+        String content=item.getContent();//intent.getStringExtra("details");
+        link=item.getLink();//intent.getStringExtra("link");
+*/
         String title=intent.getStringExtra("title");
         String source=intent.getStringExtra("source");
         String datetime=intent.getStringExtra("date_time");

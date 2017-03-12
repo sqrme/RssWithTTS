@@ -90,7 +90,7 @@ public class RssDatabaseHelper extends SQLiteOpenHelper {
                         getColumnIndex("content"));
                 rssItem.setContent(content);
 
-                rssItem.setMarked(false);
+                //rssItem.setState(0);
 
                 rssItemsList.add(rssItem);
             } while (cursor.moveToNext());
@@ -202,7 +202,6 @@ public class RssDatabaseHelper extends SQLiteOpenHelper {
             db.update("Source", values, "name = ?", new String[] { source.getName() });
             values.clear();
         }
-
     }
 
     @Override

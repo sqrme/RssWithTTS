@@ -230,7 +230,7 @@ public class TTSProcesser implements SpeechSynthesizerListener {
     }
 
     private void toPrint(String msg){
-        Log.d("TTS",msg);
+        AppLog.d("TTS",msg);
     }
 
     @Override

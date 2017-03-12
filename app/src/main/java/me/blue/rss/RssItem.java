@@ -34,7 +34,7 @@ public class RssItem implements Comparable<RssItem>, Parcelable {
     private Date pubDate;
     private String description;
     private String content;
-    private boolean marked;
+    //private int state;
 
 	public RssItem() {
 		
@@ -43,33 +43,35 @@ public class RssItem implements Comparable<RssItem>, Parcelable {
 	public RssItem(Parcel source) {
 		
 		Bundle data = source.readBundle();
+		feed = data.getParcelable("feed");
 		title = data.getString("title");
 		link = data.getString("link");
 		pubDate = (Date) data.getSerializable("pubDate");
 		description = data.getString("description");
 		content = data.getString("content");
-		feed = data.getParcelable("feed");
-        marked = false;
+        //state=data.getInt("state");
+        //state = 0;
 	}
 
-    public boolean isMarked(){
-        return marked;
+	/*public int getState(){
+        return state;
     }
 
-    public void setMarked(boolean marked){
-        this.marked=marked;
-    }
+    public void setState(int state){
+        this.state=state;
+    }*/
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
 		
 		Bundle data = new Bundle();
+		data.putParcelable("feed", feed);
 		data.putString("title", title);
 		data.putString("link", link);
 		data.putSerializable("pubDate", pubDate);
 		data.putString("description", description);
 		data.putString("content", content);
-		data.putParcelable("feed", feed);
+        //data.putInt("state",state);
 		dest.writeBundle(data);
 	}
 	
