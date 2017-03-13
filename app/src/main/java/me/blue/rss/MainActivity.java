@@ -115,6 +115,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         protected void onPostExecute(List<RssItem> rss_item_list){
+            ProgressBar progressBar=(ProgressBar) findViewById(R.id.progresBar);
+            //更新完毕后，隐藏进度条
+            progressBar.setVisibility(View.GONE);
             if(rss_item_list.size()>0){
                 rssItemsList=rss_item_list;
                 //saveRssItems();
@@ -170,18 +173,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+
+    private void ReloadRssItems() {
+        validSourceList=dbHelper.getValidSourceList();
+        ProgressBar progressBar=(ProgressBar) findViewById(R.id.progresBar);
+        progressBar.setVisibility(View.VISIBLE);
+        progressBar.setMax(validSourceList.size());
+        progressBar.setProgress(0);
+        NetworkDataLoader loader=new NetworkDataLoader();
+        loader.execute(validSourceList);
+        //progressBar.setProgress(0);
+        //progressBar.setVisibility(View.GONE);
+    }
+
+
+
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.refreshButton:
-                //Toast toast=Toast.makeText(this.getApplicationContext(),"refreshing",Toast.LENGTH_SHORT).show();;
-                validSourceList=dbHelper.getValidSourceList();
-                ProgressBar progressBar=(ProgressBar) findViewById(R.id.progresBar);
-                progressBar.setMax(validSourceList.size());
-                progressBar.setProgress(0);
-                NetworkDataLoader loader=new NetworkDataLoader();
-                loader.execute(validSourceList);
-                progressBar.setProgress(0);
+                ReloadRssItems();
                 break;
             case R.id.menuButton:
                 PopupMenu popupMenu=new PopupMenu(this,view);
@@ -194,4 +205,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 popupMenu.show();
         }
     }
+
 }
