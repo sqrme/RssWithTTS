@@ -56,8 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         private String [] sou_string;
 
         @Override
-        protected void onPreExecute()
-        {
+        protected void onPreExecute(){
             AppLog.d("main","start.......");
         }
 
@@ -67,7 +66,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             progressBar.setProgress(values[0]);
             if(values[1]==0)
                 Toast.makeText(MyApplication.getContext(),sou_string[values[0]-1] +"载入失败！", Toast.LENGTH_SHORT).show();
-            //Toast.makeText(MainActivity.this,sou_string[values[0]-1] +"载入失败！", Toast.LENGTH_SHORT).show();
         }
 
 
@@ -120,14 +118,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             progressBar.setVisibility(View.GONE);
             if(rss_item_list.size()>0){
                 rssItemsList=rss_item_list;
-                //saveRssItems();
+                saveRssItems();
+                RssItemAdapter rssItemAdapter=new RssItemAdapter(MainActivity.this,R.layout.rss_item,rssItemsList,ttsProcesser);
+                ListView listView=(ListView) findViewById(R.id.rss_item_list_view);
+                listView.setAdapter(rssItemAdapter);
             }else
             {
-                //loadNewsFromDatabse();
+                loadNewsFromDatabse();
             }
-            RssItemAdapter rssItemAdapter=new RssItemAdapter(MainActivity.this,R.layout.rss_item,rssItemsList,ttsProcesser);
-            ListView listView=(ListView) findViewById(R.id.rss_item_list_view);
-            listView.setAdapter(rssItemAdapter);
+
         }
     }
 
@@ -155,10 +154,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return true;
     }
 
+    //// TODO: 2017/3/15 建立一个后台线程，从数据库中载入数据，以提高界面的响应效率。 
     private void loadNewsFromDatabse(){
         try {
             rssItemsList=dbHelper.LoadRssItems();
             AppLog.d("Rss",String.valueOf(rssItemsList.size()));
+            RssItemAdapter rssItemAdapter=new RssItemAdapter(MainActivity.this,R.layout.rss_item,rssItemsList,ttsProcesser);
+            ListView listView=(ListView) findViewById(R.id.rss_item_list_view);
+            listView.setAdapter(rssItemAdapter);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -175,15 +178,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void ReloadRssItems() {
-        validSourceList=dbHelper.getValidSourceList();
-        ProgressBar progressBar=(ProgressBar) findViewById(R.id.progresBar);
-        progressBar.setVisibility(View.VISIBLE);
-        progressBar.setMax(validSourceList.size());
-        progressBar.setProgress(0);
-        NetworkDataLoader loader=new NetworkDataLoader();
-        loader.execute(validSourceList);
-        //progressBar.setProgress(0);
-        //progressBar.setVisibility(View.GONE);
+
+        if(MyApplication.isNetworkConnected(getApplicationContext())){
+            validSourceList=dbHelper.getValidSourceList();
+            ProgressBar progressBar=(ProgressBar) findViewById(R.id.progresBar);
+            progressBar.setVisibility(View.VISIBLE);
+            progressBar.setMax(validSourceList.size());
+            progressBar.setProgress(0);
+            NetworkDataLoader loader=new NetworkDataLoader();
+            loader.execute(validSourceList);
+        }else
+        {
+            if(this.rssItemsList.isEmpty()){
+                loadNewsFromDatabse();
+            }
+            Toast.makeText(getApplicationContext(),"好像没有联网哦，暂不能刷新，再试试吧！",Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 

@@ -25,24 +25,18 @@ public class RssItemDetailsActivity extends AppCompatActivity implements View.On
 
         Intent intent=getIntent();
         RssItem item=(RssItem)intent.getParcelableExtra("rss_item");
-        /*
-        String title=item.getTitle();//intent.getStringExtra("title");
-        String source=item.getFeed().getTitle();//intent.getStringExtra("source");
-        String datetime=item.getPubDate().toString();//intent.getStringExtra("date_time");
-        String content=item.getContent();//intent.getStringExtra("details");
-        link=item.getLink();//intent.getStringExtra("link");
-*/
+
         String title=intent.getStringExtra("title");
-        String source=intent.getStringExtra("source");
+        //String source=intent.getStringExtra("source");
         String datetime=intent.getStringExtra("date_time");
-        String content=intent.getStringExtra("details");
+        String details=intent.getStringExtra("details");
         link=intent.getStringExtra("link");
 
         TextView title_view=(TextView) findViewById(R.id.rss_item_title);
         title_view.setText(title);
 
-        TextView source_view=(TextView) findViewById(R.id.rss_source);
-        source_view.setText(source);
+        //TextView source_view=(TextView) findViewById(R.id.rss_source);
+        //source_view.setText(source);
 
         TextView datetime_view=(TextView) findViewById(R.id.data_time);
         datetime_view.setText(datetime);
@@ -53,7 +47,7 @@ public class RssItemDetailsActivity extends AppCompatActivity implements View.On
         ws.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
 
         content_view.getSettings().setDefaultTextEncodingName("UTF -8");//设置默认为utf-8
-        content_view.loadData(content, "text/html; charset=UTF-8", null);//这种写法可以正确解码
+        content_view.loadData(details, "text/html; charset=UTF-8", null);//这种写法可以正确解码
 
         TextView more_link=(TextView) findViewById(R.id.rss_link);
         more_link.setOnClickListener(this);

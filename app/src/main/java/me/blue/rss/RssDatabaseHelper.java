@@ -34,7 +34,7 @@ public class RssDatabaseHelper extends SQLiteOpenHelper {
             +"link text,"
             +"pubDate text,"
             +"description text,"
-            +"content text) ";
+            +"content text)";
 
 
 
@@ -64,41 +64,51 @@ public class RssDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db=this.getReadableDatabase();
 
         Cursor cursor = db.query("RssItem", null, null, null, null, null, null);
-        if (cursor.moveToFirst()) {
-            do {
-                RssItem rssItem=new RssItem();
-                // 遍历Cursor对象，取出数据并打印
-                String title = cursor.getString(cursor.
-                        getColumnIndex("title"));
-                rssItem.setTitle(title);
+        try{
+            if (cursor.moveToFirst()) {
+                do {
+                    RssItem rssItem=new RssItem();
+                    // 遍历Cursor对象，取出数据并打印
+                    String title = cursor.getString(cursor.
+                            getColumnIndex("title"));
+                    rssItem.setTitle(title);
 
-                String link = cursor.getString(cursor.
-                        getColumnIndex("link"));
-                rssItem.setLink(link);
+                    String link = cursor.getString(cursor.
+                            getColumnIndex("link"));
+                    rssItem.setLink(link);
 
-                String dataStr=cursor.getString(cursor.
-                        getColumnIndex("pubDate"));
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
-                Date date=sdf.parse(dataStr);
-                rssItem.setPubDate(date);
+                    try{
+                        String dataStr=cursor.getString(cursor.
+                                getColumnIndex("pubDate"));
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
+                        Date date=sdf.parse(dataStr);
+                        rssItem.setPubDate(date);
+                    }catch (ParseException e){
+                        e.printStackTrace();
+                        AppLog.d("Rss","In date parsing: "+e.toString());
+                    }
 
-                String discription=cursor.getString(cursor.
-                        getColumnIndex("description"));
-                rssItem.setDescription(discription);
+                    String description=cursor.getString(cursor.
+                            getColumnIndex("description"));
+                    rssItem.setDescription(description);
 
-                String content=cursor.getString(cursor.
-                        getColumnIndex("content"));
-                rssItem.setContent(content);
+                    String content=cursor.getString(cursor.
+                            getColumnIndex("content"));
+                    rssItem.setContent(content);
 
-                //rssItem.setState(0);
+                    rssItem.setState(0);
 
-                rssItemsList.add(rssItem);
-            } while (cursor.moveToNext());
+                    rssItemsList.add(rssItem);
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+        }catch (Exception e){
+            e.printStackTrace();
+            AppLog.d("Rss","Load items from db error:"+e.toString());
+        }finally {
+            return rssItemsList;
         }
-        cursor.close();
 
-
-        return rssItemsList;
     }
 
 

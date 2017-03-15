@@ -34,8 +34,6 @@ public class SubManagerActivity extends AppCompatActivity implements View.OnClic
     private void InitialSourceList()
     {
         sourceList=dbHelper.getRssSourceList();
-       /* RssDataBase db=new RssDataBase();
-        sourceList=db.getRssSourceList();*/
         Log.d("RSS","sqr");
         Log.d("RSS",String.valueOf(sourceList.size()));
         RssSourceAdapter rssSourceAdapter=new RssSourceAdapter(SubManagerActivity.this,R.layout.source_item,sourceList);

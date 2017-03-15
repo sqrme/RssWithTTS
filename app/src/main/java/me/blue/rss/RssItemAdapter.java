@@ -87,7 +87,7 @@ public class RssItemAdapter extends ArrayAdapter<RssItem> {
 
                 try {
                     intent.putExtra("title", item.getTitle());
-                    intent.putExtra("source", item.getFeed().getTitle());
+                    //intent.putExtra("source", item.getFeed().getTitle());
                     intent.putExtra("details", item.getDescription());
                     intent.putExtra("link",item.getLink());
                     intent.putExtra("date_time", item.getPubDate().toString());

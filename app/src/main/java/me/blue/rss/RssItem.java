@@ -34,7 +34,7 @@ public class RssItem implements Comparable<RssItem>, Parcelable {
     private Date pubDate;
     private String description;
     private String content;
-    //private int state;
+    private int state;
 
 	public RssItem() {
 		
@@ -53,13 +53,13 @@ public class RssItem implements Comparable<RssItem>, Parcelable {
         //state = 0;
 	}
 
-	/*public int getState(){
+	public int getState(){
         return state;
     }
 
     public void setState(int state){
         this.state=state;
-    }*/
+    }
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
