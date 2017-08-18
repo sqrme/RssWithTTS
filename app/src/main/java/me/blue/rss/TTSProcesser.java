@@ -189,7 +189,7 @@ public class TTSProcesser implements SpeechSynthesizerListener {
         // 如果合成结果出现临时授权文件将要到期的提示，说明使用了临时授权文件，请删除临时授权即可。
         //this.mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_TTS_LICENCE_FILE, mSampleDirPath + "/" + LICENSE_FILE_NAME);
         // 请替换为语音开发者平台上注册应用得到的App ID (离线授权)
-        this.mSpeechSynthesizer.setAppId("9283814");
+        this.mSpeechSynthesizer.setAppId("XXXX");
         // 请替换为语音开发者平台注册应用得到的apikey和secretkey (在线授权)
         this.mSpeechSynthesizer.setApiKey("5X9BQW4kXMc9Vjnb5Lk7itG5","56bcbb3c7d8ac698ef67a341634d3393");
         // 发音人（在线引擎），可用参数为0,1,2,3。。。（服务器端会动态增加，各值含义参考文档，以文档说明为准。0--普通女声，1--普通男声，2--特别男声，3--情感男声。。。）
